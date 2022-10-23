@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'HN Reader',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'HN Reader'),
     );
   }
 }
@@ -35,8 +35,24 @@ class StoryHeadline extends StatelessWidget {
   const StoryHeadline({super.key, required this.story});
 
   @override
-  Widget build(BuildContext context){
-    return Card(child: Text(story.title));
+  Widget build(BuildContext context) {
+    TextStyle headerTextStyle = TextStyle(color: Colors.purple[50], fontSize: 16);
+    TextStyle bodyTextStyle = TextStyle(color: Colors.purple[200], fontSize: 12);
+    return Card(
+        color: Colors.transparent,
+        child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                story.title,
+                style: headerTextStyle,
+              ),
+              Text(
+                "${story.score} points by ${story.postUser}",
+                style: bodyTextStyle,
+              )
+            ])));
   }
 }
 
@@ -74,27 +90,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    List<Story> stories = getStories(1, 2);
+    Future<List<Story>> loadingStories = getStories();
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: stories.length,
-          itemBuilder: (BuildContext context, int index) {
-            return StoryHeadline(story: stories[index]);
-          }
-        )
-      )
-    );
+        backgroundColor: Colors.black87,
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          backgroundColor: Colors.purple,
+          title: Text(widget.title),
+        ),
+        body: Center(
+            child: FutureBuilder<List<Story>>(
+          future: loadingStories,
+          builder:
+              ((BuildContext context, AsyncSnapshot<List<Story>> snapshot) {
+            if (snapshot.hasData) {
+              var stories = snapshot.data;
+              return ListView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: stories!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return StoryHeadline(story: stories[index]);
+                  });
+            } else {
+              return const CircularProgressIndicator();
+            }
+          }),
+        )));
   }
 }
