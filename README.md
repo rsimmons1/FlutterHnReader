@@ -1,5 +1,7 @@
 # HN Reader
 
+![Screenshot of HN Reader](images/hn_screenshot.png?raw=true "Screenshot of HN Reader")
+
 HnReader is a Flutter based Hackernews client with the following features:
 - Dark mode
 - Story caching
