@@ -1,16 +1,9 @@
 # hn_reader
 
-A new Flutter project.
+HnReader is a Flutter based Hackernews client with the following features:
+- Dark mode
+- Story caching
 
-## Getting Started
+It requires no additional permissions and currently does not support commenting only reading.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The goal of the project is to look and act as closely to the original Hackernews page as possible and add small features like dark mode and story caching while being cross platform.
