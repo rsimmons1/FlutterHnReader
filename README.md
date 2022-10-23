@@ -1,4 +1,4 @@
-# hn_reader
+# HN Reader
 
 HnReader is a Flutter based Hackernews client with the following features:
 - Dark mode
