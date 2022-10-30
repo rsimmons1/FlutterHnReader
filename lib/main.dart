@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hn_reader/hn_api.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:hn_reader/hn_widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,32 +29,6 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'HN Reader'),
     );
-  }
-}
-
-class StoryHeadline extends StatelessWidget {
-  final Story story;
-  const StoryHeadline({super.key, required this.story});
-
-  @override
-  Widget build(BuildContext context) {
-    TextStyle headerTextStyle = TextStyle(color: Colors.purple[50], fontSize: 16);
-    TextStyle bodyTextStyle = TextStyle(color: Colors.purple[200], fontSize: 12);
-    return Card(
-        color: Colors.transparent,
-        child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                story.title,
-                style: headerTextStyle,
-              ),
-              Text(
-                "${story.score} points by ${story.postUser}",
-                style: bodyTextStyle,
-              )
-            ])));
   }
 }
 
@@ -92,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Future<List<Story>> loadingStories = getStories();
     return Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: const Color.fromARGB(255, 15, 15, 15),
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
