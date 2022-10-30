@@ -34,12 +34,12 @@ and add small features like dark mode and story caching while being cross platfo
 
 Instructions for building / running the flutter app.
 
-## To run locally
+### To run locally
 ```
 flutter run
 ```
 
-## To build / deploy on Android
+### To build / deploy on Android
 ```
 flutter build apk
 ```
